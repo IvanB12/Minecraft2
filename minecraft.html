@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        #container {
+            display: flex;
+            height: 100vh;
+            background-color: black;
+            text-align: center
+        }
+        
+        #sidebar {
+            display: flex;
+            height: 100%;
+            width: 20%;
+            float: right;
+            background-color: grey;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            align-content: stretch;
+            border: red solid 5px;
+            font-size: 32px
+        }
+        
+        .tools {
+            height: 50px;
+            width: 50px;
+            background-color: red;
+            margin: 1px 1px 1px 1px;
+        }
+        
+        #rocks {
+            background-image: url("rocks.png");
+            background-size: contain;
+        }
+        
+        #dirt {
+            background-image: url("dirt.png");
+            background-size: contain;
+        }
+        
+        #tree {
+            background-image: url("treeTrunk.png");
+            background-size: contain;
+        }
+        
+        .tree {
+            width: 20px;
+            height: 20px;
+            background-image: url("treeTrunk.png");
+            background-size: contain;
+        }
+        
+        #shovel {
+            background-image: url("shovel.png");
+            background-size: contain;
+        }
+        
+        #pickaxe {
+            background-image: url("pickaxe.jpeg");
+            background-size: contain;
+        }
+        
+        #axe {
+            background-image: url("axe.jpeg");
+            background-size: contain;
+        }
+        
+        #inventory {
+            display: flex;
+            height: 40%;
+            width: 100%;
+            background-color: rebeccapurple;
+            border-top: red solid 5px;
+            border-bottom: red solid 5px;
+            text-align: center;
+            justify-items: center;
+        }
+        
+        #rocksInventory {
+            height: 50px;
+            width: 50px;
+            color: white;
+            background: black;
+            margin: 1px;
+        }
+        
+        #dirtInventory {
+            height: 50px;
+            width: 50px;
+            color: white;
+            background: black;
+            margin: 1px;
+        }
+        
+        #treeInventory {
+            height: 50px;
+            width: 50px;
+            color: white;
+            background: black;
+            margin: 1px;
+        }
+        
+        #GameArea {
+            height: 600px;
+            width: 600px;
+            border-color: red;
+            border-style: solid;
+            background-color: lightblue;
+            padding: 0px 0px;
+            margin: 0px;
+            font-size: 6px;
+            margin: auto auto;
+        }
+        
+        .cell {
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            color: transparent;
+        }
+        
+        .canvasRocks {
+            background-image: url("rocks.png");
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-repeat: repeat;
+            background-size: contain;
+            color: transparent;
+        }
+        
+        .canvasTreeLeaves {
+            background-image: url("treeLeaves.png");
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-size: contain;
+            color: transparent;
+        }
+        
+        .canvasTreeTrunk {
+            background-image: url("treeTrunk.png");
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-size: contain;
+            color: transparent;
+        }
+        
+        .cloud {
+            background-color: aliceblue;
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-size: contain;
+            color: transparent;
+        }
+        
+        .canvasDirt {
+            background-image: url("dirt.png");
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-size: contain;
+            color: transparent;
+        }
+        
+        .dirt-withGrass {
+            background-image: url("treeLeaves.png");
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            background-size: contain;
+            color: transparent;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="minecraftIvan.css">
+    <title>LATEST
+    </title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div id="container">
+
+        <div id="GameArea">
+        </div>
+        <div id="sidebar">
+            <div>Backgrounds<br/>
+                <button id="rocks" class="tools">rocks</button>
+                <button id="dirt" class="tools">dirt</button>
+                <button id="tree" class="tools">tree</button>
+            </div>
+            <div>Tools<br/>
+                <button id="axe" class="tools">Axe</button>
+                <button id="pickaxe" class="tools">Pickaxe</button>
+                <button id="shovel" class="tools">Shovel</button>
+            </div>
+            <div id="inventory">Inventory<br/>
+                <div id="rocksInventory">rocks</div>
+                <div id="dirtInventory">dirt</div>
+                <div id="treeInventory">tree</div>
+
+            </div>
+        </div>
+    </div>
+    <!--Ivan's Code-->
+
+    <script>
+        game = {
+            start: function() {
+                var GameArea = document.getElementById("GameArea");
+                GameArea.cl
+                for (var i = 1; i < 901; ++i) {
+                    var cell = document.createElement('div')
+                    cell.className = "cell";
+                    numb = [i];
+
+                    cell.innerHTML = numb;
+                    cell.id = "cell" + [i];
+
+                    GameArea.appendChild(cell);
+                    cell.addEventListener("click", this.toogle)
+
+                    if (i >= 601 && i <= 901) {
+                        cell.className = "canvasDirt"; // done 
+                        //     cell.id = "cell" + [i];
+                    } else if (i == 531 || i == 532 || i == 501 || i == 502 ||
+                        i == 441 || i == 442 || i == 471 || i == 472 || i == 561 || i == 562) {
+                        cell.className = "canvasTreeTrunk"; // done
+                    } else if ((201 <= i && i <= 202) || (230 <= i && 233 >= i) || (260 <= i && 263 >= i) || (290 <= i && 293 >= i) || (320 <= i && 323 >= i) || (350 <= i && 353 >= i) || (380 <= i && 383 >= i) || (410 <= i && 413 >= i)) {
+                        cell.className = "canvasTreeLeaves"; // done
+
+                    } else if ((152 <= i && i <= 160) || (183 <= i && i <= 189) || (122 <= i && i <= 130) || (93 <= i && i <= 99) || (43 <= i && i <= 49) || (74 <= i && i <= 78) || (14 <= i && i <= 18)) {
+                        cell.className = "cloud";
+                    } else if ((542 <= i && i <= 545) || (568 <= i && i <= 570) || (513 <= i && i <= 514) || (550 <= i && i <= 552) || (520 <= i && i <= 522) || (539 <= i && i <= 539)) {
+                        cell.className = "canvasRocks"; // done
+                    } else if (571 <= i && i <= 600) {
+                        cell.className = "dirt-withGrass"; // done
+                    }
+                }
+            }
+        }
+        var GameAreaCells = GameArea;
+
+        var toolSelected;
+        var backgroundSelected;
+        var inventorySelected;
+
+        //tool buttons
+
+        var pickaxeButton = document.getElementById("pickaxe");
+        pickaxeButton.addEventListener("click", function() {
+            document.getElementById("pickaxe").style.border = "10px solid black";
+            document.getElementById("shovel").style.border = "";
+            document.getElementById("axe").style.border = "";
+            toolSelected = "pickaxe";
+            console.log(toolSelected)
+            return toolSelected
+        });
+
+        var shovelButton = document.getElementById("shovel");
+        shovelButton.addEventListener("click", function() {
+            document.getElementById("shovel").style.border = "10px solid black";
+            document.getElementById("pickaxe").style.border = "";
+            document.getElementById("axe").style.border = "";
+            toolSelected = "shovel";
+            console.log(toolSelected)
+            return toolSelected
+        });
+
+        var axeButton = document.getElementById("axe");
+        axeButton.addEventListener("click", function() {
+            document.getElementById("axe").style.border = "10px solid black";
+            document.getElementById("pickaxe").style.border = "";
+            document.getElementById("shovel").style.border = "";
+            toolSelected = "axe";
+            console.log(toolSelected)
+            return toolSelected
+        });
+
+        //background buttons
+
+        var rocksButton = document.getElementById("rocks");
+        rocksButton.addEventListener("click", function() {
+            document.getElementById("rocks").style.border = "10px solid black";
+            document.getElementById("dirt").style.border = "";
+            document.getElementById("tree").style.border = "";
+            backgroundSelected = "rocks";
+            console.log(backgroundSelected)
+            return backgroundSelected
+        });
+
+        var dirtButton = document.getElementById("dirt");
+        dirtButton.addEventListener("click", function() {
+            document.getElementById("dirt").style.border = "10px solid black";
+            document.getElementById("rocks").style.border = "";
+            document.getElementById("tree").style.border = "";
+            backgroundSelected = "dirt";
+            console.log(backgroundSelected)
+            return backgroundSelected
+        });
+
+        var treeButton = document.getElementById("tree");
+        treeButton.addEventListener("click", function() {
+            document.getElementById("tree").style.border = "10px solid black";
+            document.getElementById("rocks").style.border = "";
+            document.getElementById("dirt").style.border = "";
+            backgroundSelected = "tree";
+            console.log(backgroundSelected)
+            return backgroundSelected
+        });
+
+        //inventory selectors
+
+        var rocksInventoryButton = document.getElementById("rocksInventory");
+        rocksInventoryButton.addEventListener("click", function() {
+            document.getElementById("rocksInventory").style.border = "10px solid black";
+            document.getElementById("dirtInventory").style.border = "";
+            document.getElementById("treeInventory").style.border = "";
+            inventorySelected = "rocksInventory";
+            console.log(inventorySelected)
+            return inventorySelected
+        });
+
+        var dirtInventoryButton = document.getElementById("dirtInventory");
+        dirtInventoryButton.addEventListener("click", function() {
+            document.getElementById("dirtInventory").style.border = "10px solid black";
+            document.getElementById("rocksInventory").style.border = "";
+            document.getElementById("treeInventory").style.border = "";
+            inventorySelected = "dirtInventory";
+            console.log(inventorySelected)
+            return inventorySelected
+        });
+
+        var treeInventoryButton = document.getElementById("treeInventory");
+        treeInventoryButton.addEventListener("click", function() {
+            document.getElementById("treeInventory").style.border = "10px solid black";
+            document.getElementById("rocksInventory").style.border = "";
+            document.getElementById("dirtInventory").style.border = "";
+            inventorySelected = "treeInventory";
+            console.log(inventorySelected)
+            return inventorySelected
+        });
+
+
+        var treeInventory = 2;
+        var dirtInventory = 2;
+        var rocksInventory = 2;
+
+        //make elements dissapear 
+
+        $(document).ready(function() {
+
+            $('#GameArea div').click(function() {
+                var id = $(this).attr('id');
+                var classN = $(this).attr('class');
+
+                switch (classN) {
+                    case 'canvasTreeLeaves':
+                    case 'canvasTreeTrunk':
+                        treeInventory++;
+                        addToInventory();
+                        break;
+
+                    case 'canvasRocks':
+                        rocksInventory++;
+                        addToInventory();
+                        break;
+
+
+                    case 'canvasDirt':
+                    case 'dirt-withGrass':
+                        dirtInventory++;
+                        addToInventory();
+                        break;
+
+                }
+                // var indexCell = id.split('cell')
+                console.log(id)
+                $('#' + id).css("background", "none");
+                return false;
+            });
+        });
+
+        $(document).ready(function() {
+
+            $('#GameArea div').click(function() {
+                var id = $(this).attr('id');
+                var classN = $(this).attr('class');
+
+                switch (classN) {
+                    case 'canvasTreeLeaves':
+                    case 'canvasTreeTrunk':
+                        treeInventory++;
+                        addToInventory();
+                        break;
+
+                    case 'canvasRocks':
+                        rocksInventory++;
+                        addToInventory();
+                        break;
+
+                    case 'canvasDirt':
+                    case 'dirt-withGrass':
+                        dirtInventory++;
+                        addToInventory();
+                        break;
+                }
+                console.log(id)
+                $('#' + id).css("background", "none");
+                return false;
+            });
+
+        });
+
+        function addToInventory() {
+            if (rocksInventory > 0) {
+                document.getElementById("rocksInventory").style.backgroundImage = "url('rocks.png')";
+                document.getElementById("rocksInventory").innerHTML = rocksInventory;
+            }
+            if (dirtInventory > 0) {
+                document.getElementById("dirtInventory").style.backgroundImage = "url('dirt.png')";
+                document.getElementById("dirtInventory").innerHTML = dirtInventory;
+            }
+            if (treeInventory > 0) {
+                document.getElementById("treeInventory").style.backgroundImage = "url('treeLeaves.png')";
+                document.getElementById("treeInventory").innerHTML = treeInventory;
+            }
+        }
+
+        addToInventory()
+
+        game.start()
+    </script>
+
+</body>
+
+</html>
